@@ -7,16 +7,16 @@
 // creo l'alert con 5 numeri casuali
 var casuali = [];
 var random;
-for (var i = 0; i < 5; i++) {
+while (casuali.length < 5) {
     random = Math.floor(Math.random()*100);
-    casuali.push(random);
+    if (!indovinato(casuali,random)) { // riporta valore FALSE
+        casuali.push(random);
+    }
 }
-console.log(casuali + " casuali");
-
 alert(casuali);
 
 
-// creo l'array nel quale inserire i numeri scelti dall'utente
+// creo l'array nel quale inserire i numeri scelti dall'utente e uno dove mettere quelli indovinati
 var utente = [];
 var nu;
 var uguali = [];
@@ -25,18 +25,25 @@ var uguali = [];
 setTimeout(function(){
     while (utente.length != casuali.length) {
         nu = parseInt(prompt("inserisci uno dei numeri apparsi poco fa"));
-        utente.push(nu);
+        if (nu < 0 || nu > 100 || isNaN(nu)) {
+            alert("Deve essere un numero da 0 a 100!")
+        }  else if (indovinato(utente,nu)) {
+            alert("Hai già inserito questo numero")
+        }  else {
+            utente.push(nu);
 // controllo se i numeri scritti col prompt sono contenuti nell'array dei numeri random con una funzione
-        if (indovinato(casuali,nu)) {         //riporta TRUE
-            uguali.push(nu);
+            if (indovinato(casuali,nu)) { //riporta TRUE
+                uguali.push(nu);
+            }
         }
     }
-
     document.getElementById('risultato').innerHTML = "Hai indovinato " + uguali.length + " numeri: " + uguali;
 
-},30000)
+},1000)
 
 
+
+// **********FUNZIONI**********
 
 function indovinato(array,elemento){
     var i = 0;
