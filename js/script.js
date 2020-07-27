@@ -39,7 +39,7 @@ setTimeout(function(){
     }
     document.getElementById('risultato').innerHTML = "Hai indovinato " + uguali.length + " numeri: " + uguali;
 
-},1000)
+},30000)
 
 
 
